@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adopet.API", "Alura.Adopet.API\Adopet.API.csproj", "{1EFD091A-90B3-42C9-90D0-1B73FA46C5C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adopet.API", "Adopet.API\Adopet.API.csproj", "{1EFD091A-90B3-42C9-90D0-1B73FA46C5C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adopet.Console", "Alura.Adopet.Console\Adopet.Console.csproj", "{CDC4860C-35AD-4396-B20F-547C44F680CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adopet.Console", "Adopet.Console\Adopet.Console.csproj", "{CDC4860C-35AD-4396-B20F-547C44F680CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adopet.Testes", "Adopet.Testes\Adopet.Testes.csproj", "{C0606D88-453C-4753-AA16-D888A0478E1E}"
 EndProject

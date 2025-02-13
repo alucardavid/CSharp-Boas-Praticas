@@ -1,27 +1,27 @@
-﻿using Alura.Adopet.API.Dados.Context;
-using Alura.Adopet.API.Dominio.Entity;
-using Alura.Adopet.API.Dominio.Interface.Repository;
+﻿using Adopet.API.Dados.Context;
+using Adopet.API.Dominio.Entity;
+using Adopet.API.Dominio.Interface.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Alura.Adopet.API.Dados.Repository
+namespace Adopet.API.Dados.Repository
 {
     internal class PetRepository : IPetRepository
     {
         private DataBaseContext _context;
         public PetRepository(DataBaseContext ctx)
         {
-            _context= ctx;
+            _context = ctx;
         }
         public Pet Adicionar(Pet _pet)
         {
             _context.Add(_pet);
-            _context.SaveChanges();        
+            _context.SaveChanges();
             return _pet;
         }
 
         public Pet Atualizar(int id, Pet _pet)
         {
-            var _obj = this.ObterPorId(_pet.Id);
+            var _obj = ObterPorId(_pet.Id);
             if (_obj == null)
             {
                 return null;
@@ -33,7 +33,7 @@ namespace Alura.Adopet.API.Dados.Repository
 
         public bool Excluir(Guid id)
         {
-            var _obj = this.ObterPorId(id);
+            var _obj = ObterPorId(id);
             if (_obj == null)
             {
                 return false;
@@ -50,7 +50,7 @@ namespace Alura.Adopet.API.Dados.Repository
 
         public async Task<List<Pet>> ObterTodos()
         {
-            return await _context.Pets.Include(prop=>prop.Proprietario).ToListAsync();
+            return await _context.Pets.Include(prop => prop.Proprietario).ToListAsync();
         }
     }
 }

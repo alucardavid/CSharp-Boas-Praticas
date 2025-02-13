@@ -2,7 +2,7 @@
 using System.Net.Http.Json;
 using Adopet.Console.Modelos;
 
-namespace Alura.Adopet.Console.Servicos
+namespace Adopet.Console.Servicos
 {
     public class HttpClientPet
     {

@@ -1,13 +1,13 @@
 ﻿using Alura.Adopet.API.Util;
 using System.ComponentModel.DataAnnotations;
 
-namespace Alura.Adopet.API.Dominio.Entity
+namespace Adopet.API.Dominio.Entity
 {
     internal class Pet
     {
         public Pet()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         [Key]

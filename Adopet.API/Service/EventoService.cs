@@ -1,4 +1,4 @@
-﻿using Alura.Adopet.API.Dados.Context;
+﻿using Adopet.API.Dados.Context;
 using Alura.Adopet.API.Dominio.Entity;
 
 namespace Alura.Adopet.API.Service

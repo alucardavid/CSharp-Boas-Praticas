@@ -1,6 +1,6 @@
-﻿using Alura.Adopet.API.Dominio.Entity;
+﻿using Adopet.API.Dominio.Entity;
 
-namespace Alura.Adopet.API.Dominio.Interface.Repository
+namespace Adopet.API.Dominio.Interface.Repository
 {
     internal interface IClienteRepository
     {

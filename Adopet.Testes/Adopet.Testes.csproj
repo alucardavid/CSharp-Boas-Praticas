@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Adopet.Console\Adopet.Console.csproj" />
     <ProjectReference Include="..\Alura.Adopet.Console\Adopet.Console.csproj" />
   </ItemGroup>
 
