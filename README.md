@@ -49,8 +49,9 @@ Enumeração que define os tipos de pets disponíveis:
 
 1. Clone o repositório:
 
-git clone https://github.com/seu-usuario/alura-adopet-console.git
-
+```sh
+git clone https://github.com/seu-usuario/CSharp-boas-praticas.git
+```
 2. Abra o projeto no Visual Studio 2022.
 
 3. Compile e execute o projeto.
