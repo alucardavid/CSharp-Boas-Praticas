@@ -1,3 +1,5 @@
+using Alura.Adopet.Console.Servicos;
+
 namespace Adopet.Testes
 {
     public class UnitTest1
@@ -5,7 +7,11 @@ namespace Adopet.Testes
         [Fact]
         public void Test1()
         {
+            // Arrange
+            var clientePet = new HttpClientPet();
+            // Act
 
+            // Assert
         }
     }
 }
