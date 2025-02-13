@@ -1,7 +1,7 @@
 ﻿using Adopet.API.Dados.Context;
-using Alura.Adopet.API.Dominio.Entity;
+using Adopet.API.Dominio.Entity;
 
-namespace Alura.Adopet.API.Service
+namespace Adopet.API.Service
 {
     internal class EventoService : IEventoService
     {
@@ -28,7 +28,7 @@ namespace Alura.Adopet.API.Service
             };
             _context.Add(pet);
             _context.SaveChanges();
-           
+
         }
     }
 }

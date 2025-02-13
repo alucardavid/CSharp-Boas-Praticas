@@ -1,7 +1,7 @@
 using Adopet.API.Dados.Context;
 using Adopet.API.Dados.Repository;
 using Adopet.API.Dominio.Entity;
-using Alura.Adopet.API.Service;
+using Adopet.API.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

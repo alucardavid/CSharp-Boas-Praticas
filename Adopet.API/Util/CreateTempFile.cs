@@ -1,4 +1,4 @@
-﻿namespace Alura.Adopet.API.Util
+﻿namespace Adopet.API.Util
 {
     internal static class CreateTempFile
     {

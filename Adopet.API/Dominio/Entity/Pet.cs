@@ -1,4 +1,4 @@
-﻿using Alura.Adopet.API.Util;
+﻿using Adopet.API.Util;
 using System.ComponentModel.DataAnnotations;
 
 namespace Adopet.API.Dominio.Entity
