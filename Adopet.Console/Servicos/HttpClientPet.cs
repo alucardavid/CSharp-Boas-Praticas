@@ -6,7 +6,7 @@ namespace Adopet.Console.Servicos
 {
     public class HttpClientPet
     {
-        private HttpClient client;
+        private HttpClient client = new();
         public HttpClientPet(string uri = "http://localhost:5057")
         {
             client = ConfiguraHttpClient(uri);

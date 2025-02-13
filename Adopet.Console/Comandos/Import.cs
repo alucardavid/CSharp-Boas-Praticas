@@ -1,12 +1,6 @@
 ﻿using Adopet.Console.Modelos;
+using Adopet.Console.Servicos;
 using Adopet.Console.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Adopet.Console.Comandos
 {
@@ -14,27 +8,27 @@ namespace Adopet.Console.Comandos
     internal class Import : IComando
     {
 
-        HttpClient client;
+        private readonly HttpClientPet clientPet;
 
-        public Import()
+        public Import(HttpClientPet clientPet)
         {
-            client = ConfiguraHttpClient("http://localhost:5057");
+            this.clientPet = clientPet;
         }
+
         public async Task ExecutarAsync(string[] args)
         {
-            await ImportacaoArquivoPet(caminhoDoArquivoDeImportacao: args[1]);
+            await this.ImportacaoArquivoPetAsync(caminhoDoArquivoDeImportacao: args[1]);
         }
 
-        private async Task ImportacaoArquivoPet(string caminhoDoArquivoDeImportacao)
+        private async Task ImportacaoArquivoPetAsync(string caminhoDoArquivoDeImportacao)
         {
             List<Pet> listaDePet = new LeitorArquivo().RealizaLeitura(caminhoDoArquivoDeImportacao);
-
             foreach (var pet in listaDePet)
             {
                 System.Console.WriteLine(pet);
                 try
                 {
-                    var resposta = await CreatePetAsync(pet);
+                    await clientPet.CreatePetAsync(pet);
                 }
                 catch (Exception ex)
                 {
@@ -42,23 +36,6 @@ namespace Adopet.Console.Comandos
                 }
             }
             System.Console.WriteLine("Importação concluída!");
-        }
-        Task<HttpResponseMessage> CreatePetAsync(Pet pet)
-        {
-            HttpResponseMessage? response = null;
-            using (response = new HttpResponseMessage())
-            {
-                return client.PostAsJsonAsync("pet/add", pet);
-            }
-        }
-        HttpClient ConfiguraHttpClient(string url)
-        {
-            HttpClient _client = new HttpClient();
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            _client.BaseAddress = new Uri(url);
-            return _client;
         }
 
     }
