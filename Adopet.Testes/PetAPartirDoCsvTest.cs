@@ -1,6 +1,6 @@
 ﻿
 using Adopet.Console.Modelos;
-using Newtonsoft.Json.Linq;
+using Adopet.Console.Util;
 
 namespace Adopet.Testes
 {

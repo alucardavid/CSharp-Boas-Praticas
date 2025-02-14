@@ -8,7 +8,7 @@ namespace Adopet.Console.Util
         {
         }
 
-        internal List<Pet> RealizaLeitura(string caminhoDoArquivoDeImportacao)
+        public List<Pet> RealizaLeitura(string caminhoDoArquivoDeImportacao)
         {
             List<Pet> listaDePet = new List<Pet>();
 

@@ -1,7 +1,7 @@
 ﻿using Adopet.Console.Comandos;
 using Adopet.Console.Servicos;
 
-var httpClientPet = new HttpClientPet();
+var httpClientPet = new HttpClientPet(new AdoPetAPIClientFactory().CreateClient("adopet"));
 
 Dictionary<string, IComando> comandosDoSistema = new()
 {
