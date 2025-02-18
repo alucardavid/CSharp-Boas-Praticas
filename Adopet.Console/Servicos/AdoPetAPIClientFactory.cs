@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Adopet.Console.Servicos
 {
-    internal class AdoPetAPIClientFactory : IHttpClientFactory
+    public class AdoPetAPIClientFactory : IHttpClientFactory
     {
 
         private string uri = "http://localhost:5057";

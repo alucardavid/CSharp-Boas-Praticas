@@ -2,17 +2,20 @@
 
 namespace Adopet.Console.Util
 {
-    internal class LeitorArquivo
+    public class LeitorDeArquivo
     {
-        public LeitorArquivo()
+        private string caminhoDoArquivoDeImportacao;
+
+        public LeitorDeArquivo(string caminhoDoArquivoDeImportacao)
         {
+            this.caminhoDoArquivoDeImportacao = caminhoDoArquivoDeImportacao;
         }
 
-        public List<Pet> RealizaLeitura(string caminhoDoArquivoDeImportacao)
+        public virtual List<Pet> RealizaLeitura()
         {
             List<Pet> listaDePet = new List<Pet>();
 
-            using (StreamReader sr = new StreamReader(caminhoDoArquivoDeImportacao))
+            using (StreamReader sr = new StreamReader(this.caminhoDoArquivoDeImportacao))
             {
                 while (!sr.EndOfStream)
                 {

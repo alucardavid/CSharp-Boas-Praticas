@@ -2,7 +2,7 @@
 using Adopet.Console.Util;
 using Adopet.Console;
 
-[DocComando(instrucao: "show", documentacao: "adopet show <ARQUIVO> comando que exibe no terminal o conteúdo do arquivo importado.")]
+[DocComandoAttribute(instrucao: "show", documentacao: "adopet show <ARQUIVO> comando que exibe no terminal o conteúdo do arquivo importado.")]
 internal class Show : IComando
 {
     public Show()
@@ -17,8 +17,8 @@ internal class Show : IComando
 
     private void ExibeConteudoArquivo(string caminhoDoArquivoASerExibido)
     {
-        LeitorArquivo leitor = new LeitorArquivo();
-        var listaPets = leitor.RealizaLeitura(caminhoDoArquivoASerExibido);
+        LeitorDeArquivo leitor = new LeitorDeArquivo(caminhoDoArquivoASerExibido);
+        var listaPets = leitor.RealizaLeitura();
 
         foreach (var pet in listaPets)
         {

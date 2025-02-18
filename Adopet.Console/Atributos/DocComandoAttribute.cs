@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Adopet.Console.Atributos
+﻿namespace Adopet.Console.Comandos
 {
-    internal class DocComandoAttribute
+    [AttributeUsage(AttributeTargets.Class)]
+    public sealed class DocComandoAttribute : Attribute
     {
+        public DocComandoAttribute(string instrucao, string documentacao)
+        {
+            Instrucao = instrucao;
+            Documentacao = documentacao;
+        }
+        public string Instrucao { get; }
+        public string Documentacao { get; }
+
     }
 }

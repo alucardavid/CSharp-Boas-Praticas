@@ -6,7 +6,7 @@ using Adopet.Console.Servicos;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-[DocComando(instrucao: "list", documentacao: "adopet list comando que exibe no terminal o conteúdo da base de dados da AdoPet.")]
+[DocComandoAttribute(instrucao: "list", documentacao: "adopet list comando que exibe no terminal o conteúdo da base de dados da AdoPet.")]
 internal class List : IComando
 {
     private readonly HttpClientPet clientPet;

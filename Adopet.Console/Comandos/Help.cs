@@ -1,16 +1,16 @@
 ﻿using Adopet.Console.Comandos;
 using System.Reflection;
 
-[DocComando(instrucao: "help", documentacao: "adopet help <NOME_COMANDO> para acessar a ajuda de um comando específico.")]
+[DocComandoAttribute(instrucao: "help", documentacao: "adopet help <NOME_COMANDO> para acessar a ajuda de um comando específico.")]
 internal class Help : IComando
 {
-    private Dictionary<string, DocComando> docs;
+    private Dictionary<string, DocComandoAttribute> docs;
 
     public Help()
     {
         docs = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(t => t.GetCustomAttributes<DocComando>().Any())
-            .Select(t => t.GetCustomAttribute<DocComando>()!)
+            .Where(t => t.GetCustomAttributes<DocComandoAttribute>().Any())
+            .Select(t => t.GetCustomAttribute<DocComandoAttribute>()!)
             .ToDictionary(d => d.Instrucao);
     }
 

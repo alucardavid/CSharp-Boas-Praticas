@@ -1,12 +1,14 @@
 ﻿using Adopet.Console.Comandos;
 using Adopet.Console.Servicos;
+using Adopet.Console.Util;
 
 var httpClientPet = new HttpClientPet(new AdoPetAPIClientFactory().CreateClient("adopet"));
+var leitorDeArquivos = new LeitorDeArquivo(args[1]);
 
 Dictionary<string, IComando> comandosDoSistema = new()
 {
     {"help",new Help() },
-    {"import",new Import(httpClientPet)},
+    {"import",new Import(httpClientPet, leitorDeArquivos)},
     {"list",new List(httpClientPet) },
     {"show",new Show() },
 };

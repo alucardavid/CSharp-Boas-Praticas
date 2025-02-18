@@ -4,25 +4,27 @@ using Adopet.Console.Util;
 
 namespace Adopet.Console.Comandos
 {
-    [DocComando(instrucao: "import", documentacao: "adopet import <arquivo> comando que realiza a importação do arquivo de pets.")]
-    internal class Import : IComando
+    [DocComandoAttribute(instrucao: "import", documentacao: "adopet import <arquivo> comando que realiza a importação do arquivo de pets.")]
+    public class Import : IComando
     {
 
         private readonly HttpClientPet clientPet;
+        private readonly LeitorDeArquivo leitor;
 
-        public Import(HttpClientPet clientPet)
+        public Import(HttpClientPet clientPet, LeitorDeArquivo leitor)
         {
             this.clientPet = clientPet;
+            this.leitor = leitor;
         }
 
         public async Task ExecutarAsync(string[] args)
         {
-            await this.ImportacaoArquivoPetAsync(caminhoDoArquivoDeImportacao: args[1]);
+            await this.ImportacaoArquivoPetAsync();
         }
 
-        private async Task ImportacaoArquivoPetAsync(string caminhoDoArquivoDeImportacao)
+        private async Task ImportacaoArquivoPetAsync()
         {
-            List<Pet> listaDePet = new LeitorArquivo().RealizaLeitura(caminhoDoArquivoDeImportacao);
+            List<Pet> listaDePet = leitor.RealizaLeitura();
             foreach (var pet in listaDePet)
             {
                 System.Console.WriteLine(pet);
