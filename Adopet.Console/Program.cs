@@ -1,39 +1,23 @@
 ﻿using Adopet.Console.Comandos;
 using Adopet.Console.Servicos;
+using Adopet.Console.UI;
 using Adopet.Console.Util;
+using FluentResults;
 
-var httpClientPet = new HttpClientPet(new AdoPetAPIClientFactory().CreateClient("adopet"));
-var leitorDeArquivos = new LeitorDeArquivo(args[1]);
-
-Dictionary<string, IComando> comandosDoSistema = new()
-{
-    {"help",new Help() },
-    {"import",new Import(httpClientPet, leitorDeArquivos)},
-    {"list",new List(httpClientPet) },
-    {"show",new Show() },
-};
-
-Console.ForegroundColor = ConsoleColor.Green;
 try
 {
-    string comando = args[0].Trim();
-    if (comandosDoSistema.ContainsKey(comando))
+    IComando? comando = FabricaDeComandos.CriarComando(args);
+    if (comando is not null)
     {
-        IComando? cmd = comandosDoSistema[comando];
-        await cmd.ExecutarAsync(args);
+        var resultado = await comando.ExecutarAsync();
+        ConsoleUI.ExibeResultado(resultado);
     }
     else
     {
-        Console.WriteLine("Comando inválido!");
+        ConsoleUI.ExibeResultado(Result.Fail("Comando Invalido!"));
     }
-}
-catch (Exception ex)
-{
-    // mostra a exceção em vermelho
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine($"Aconteceu um exceção: {ex.Message}");
 }
 finally
 {
-    Console.ForegroundColor = ConsoleColor.White;
+    Console.ResetColor();
 }

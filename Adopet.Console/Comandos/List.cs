@@ -3,6 +3,8 @@ using Adopet.Console;
 using Adopet.Console.Comandos;
 using Adopet.Console.Modelos;
 using Adopet.Console.Servicos;
+using Adopet.Console.Util;
+using FluentResults;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
@@ -16,20 +18,20 @@ internal class List : IComando
         this.clientPet = clientPet;
     }
 
-    public async Task ExecutarAsync(string[] args)
+    public async Task<Result> ExecutarAsync()
     {
-        await ListaDadosPetDaAPIAsync();
+        return await ListaDadosPetDaAPIAsync();
     }
 
-    private async Task ListaDadosPetDaAPIAsync()
+    private async Task<Result> ListaDadosPetDaAPIAsync()
     {
         IEnumerable<Pet>? pets = await clientPet.ListPetsAsync();
         if (pets is not null)
         {
-            foreach (var pet in pets)
-            {
-                Console.WriteLine(pet);
-            }
+            return Result.Ok().WithSuccess(new SuccessWithPets(pets, "Pets Listados Com Sucesso!"));
         }
+
+        return Result.Ok().WithSuccess("Nenhum pet");
+
     }
 }

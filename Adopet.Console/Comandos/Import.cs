@@ -1,6 +1,7 @@
 ﻿using Adopet.Console.Modelos;
 using Adopet.Console.Servicos;
 using Adopet.Console.Util;
+using FluentResults;
 
 namespace Adopet.Console.Comandos
 {
@@ -17,27 +18,26 @@ namespace Adopet.Console.Comandos
             this.leitor = leitor;
         }
 
-        public async Task ExecutarAsync(string[] args)
+        public async Task<Result> ExecutarAsync()
         {
-            await this.ImportacaoArquivoPetAsync();
+            return await this.ImportacaoArquivoPetAsync();
         }
 
-        private async Task ImportacaoArquivoPetAsync()
+        private async Task<Result> ImportacaoArquivoPetAsync()
         {
-            List<Pet> listaDePet = leitor.RealizaLeitura();
-            foreach (var pet in listaDePet)
+            try
             {
-                System.Console.WriteLine(pet);
-                try
+                List<Pet> listaDePet = leitor.RealizaLeitura();
+                foreach (var pet in listaDePet)
                 {
                     await clientPet.CreatePetAsync(pet);
                 }
-                catch (Exception ex)
-                {
-                    System.Console.WriteLine(ex.Message);
-                }
+                return Result.Ok().WithSuccess(new SuccessWithPets(listaDePet, "Importacao Realizada com Sucesso!"));
             }
-            System.Console.WriteLine("Importação concluída!");
+            catch (Exception ex)
+            {
+                return Result.Fail(new Error("Importacao Falhou!").CausedBy(ex));  
+            }
         }
 
     }

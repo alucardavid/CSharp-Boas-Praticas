@@ -1,28 +1,36 @@
 ﻿using Adopet.Console.Comandos;
 using Adopet.Console.Util;
 using Adopet.Console;
+using FluentResults;
+using System.Diagnostics.CodeAnalysis;
+using System;
 
 [DocComandoAttribute(instrucao: "show", documentacao: "adopet show <ARQUIVO> comando que exibe no terminal o conteúdo do arquivo importado.")]
 internal class Show : IComando
 {
-    public Show()
+    private readonly LeitorDeArquivo leitor;
+    public Show(LeitorDeArquivo leitor)
     {
+        this.leitor = leitor;
     }
 
-    public Task ExecutarAsync(string[] args)
+    public Task<Result> ExecutarAsync()
     {
-        ExibeConteudoArquivo(caminhoDoArquivoASerExibido: args[1]);
-        return Task.CompletedTask;
-    }
-
-    private void ExibeConteudoArquivo(string caminhoDoArquivoASerExibido)
-    {
-        LeitorDeArquivo leitor = new LeitorDeArquivo(caminhoDoArquivoASerExibido);
-        var listaPets = leitor.RealizaLeitura();
-
-        foreach (var pet in listaPets)
+        try
         {
-            System.Console.WriteLine(pet);
+            return this.ExibeConteudoArquivo();
         }
+        catch (Exception ex)
+        {
+
+            return Task.FromResult(Result.Fail(new Error("Importação falhou!").CausedBy(ex)));
+        }
+    }
+
+    private Task<Result> ExibeConteudoArquivo()
+    {
+        var listaPets = leitor.RealizaLeitura();
+        
+        return Task.FromResult(Result.Ok().WithSuccess(new SuccessWithPets(listaPets, "Conteúdo do arquivo exibido com sucesso!")));
     }
 }
