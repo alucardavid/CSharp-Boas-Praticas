@@ -1,9 +1,9 @@
 ﻿using Adopet.Console.Servicos;
-using Adopet.Console.Util;
+using Adopet.Console.Servicos.Arquivos;
 
 namespace Adopet.Console.Comandos
 {
-    internal static class FabricaDeComandos
+    internal static class ComandosFactory
     {
         public static IComando? CriarComando(string[] argumentos)
         {
@@ -15,7 +15,7 @@ namespace Adopet.Console.Comandos
 
             var comando = argumentos[0];
             var httpClientPet = new HttpClientPet(new AdoPetAPIClientFactory().CreateClient("adopet"));
-            LeitorDeArquivo? leitorDeArquivos = argumentos.Length == 2 ? new(argumentos[1]) : null;
+            LeitorDeArquivoCsv? leitorDeArquivos = argumentos.Length == 2 ? new(argumentos[1]) : null;
 
             switch (comando)
             {

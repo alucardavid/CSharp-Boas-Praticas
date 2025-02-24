@@ -9,12 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Atributos\**" />
-    <EmbeddedResource Remove="Atributos\**" />
-    <None Remove="Atributos\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentResults" Version="3.15.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.2" />
   </ItemGroup>

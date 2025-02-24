@@ -4,12 +4,13 @@ using Adopet.Console;
 using FluentResults;
 using System.Diagnostics.CodeAnalysis;
 using System;
+using Adopet.Console.Servicos.Arquivos;
 
 [DocComandoAttribute(instrucao: "show", documentacao: "adopet show <ARQUIVO> comando que exibe no terminal o conteúdo do arquivo importado.")]
 internal class Show : IComando
 {
-    private readonly LeitorDeArquivo leitor;
-    public Show(LeitorDeArquivo leitor)
+    private readonly LeitorDeArquivoCsv leitor;
+    public Show(LeitorDeArquivoCsv leitor)
     {
         this.leitor = leitor;
     }

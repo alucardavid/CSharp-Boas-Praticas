@@ -26,7 +26,7 @@ namespace Adopet.Testes
             string[] args = ["import", "lista.csv"];
 
             // Act
-            var resultado = await import.ExecutarAsync(args);
+            var resultado = await import.ExecutarAsync();
 
             // Assert
             var listaPet = await httpClientPet.ListPetsAsync();

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adopet.Console", "Adopet.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adopet.Testes", "Adopet.Testes\Adopet.Testes.csproj", "{8F3707CB-E45B-4E22-8ED7-768D3E837BD7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{24D7F56C-C304-41B7-A9A6-BAE21BBA22AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AD59A46A-727A-4F34-8195-C7C8F80B87CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4EE5C5D9-D2BF-48DC-B138-22B2C0437AAB} = {24D7F56C-C304-41B7-A9A6-BAE21BBA22AF}
+		{7A4761D6-7EC0-499B-84D0-A91B779E1926} = {24D7F56C-C304-41B7-A9A6-BAE21BBA22AF}
+		{8F3707CB-E45B-4E22-8ED7-768D3E837BD7} = {AD59A46A-727A-4F34-8195-C7C8F80B87CD}
 	EndGlobalSection
 EndGlobal

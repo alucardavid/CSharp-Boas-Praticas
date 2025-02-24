@@ -4,7 +4,7 @@ using Moq;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Adopet.Testes
+namespace Adopet.Testes.Servicos
 {
     public class HttpClientPetTest
     {

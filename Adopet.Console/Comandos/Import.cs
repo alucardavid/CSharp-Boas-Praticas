@@ -1,5 +1,6 @@
 ﻿using Adopet.Console.Modelos;
 using Adopet.Console.Servicos;
+using Adopet.Console.Servicos.Arquivos;
 using Adopet.Console.Util;
 using FluentResults;
 
@@ -10,9 +11,9 @@ namespace Adopet.Console.Comandos
     {
 
         private readonly HttpClientPet clientPet;
-        private readonly LeitorDeArquivo leitor;
+        private readonly LeitorDeArquivoCsv leitor;
 
-        public Import(HttpClientPet clientPet, LeitorDeArquivo leitor)
+        public Import(HttpClientPet clientPet, LeitorDeArquivoCsv leitor)
         {
             this.clientPet = clientPet;
             this.leitor = leitor;
@@ -27,7 +28,7 @@ namespace Adopet.Console.Comandos
         {
             try
             {
-                List<Pet> listaDePet = leitor.RealizaLeitura();
+                var listaDePet = leitor.RealizaLeitura();
                 foreach (var pet in listaDePet)
                 {
                     await clientPet.CreatePetAsync(pet);

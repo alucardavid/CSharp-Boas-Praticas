@@ -6,7 +6,7 @@ using FluentResults;
 
 try
 {
-    IComando? comando = FabricaDeComandos.CriarComando(args);
+    IComando? comando = ComandosFactory.CriarComando(args);
     if (comando is not null)
     {
         var resultado = await comando.ExecutarAsync();
