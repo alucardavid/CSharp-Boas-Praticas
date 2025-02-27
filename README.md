@@ -1,4 +1,4 @@
-# Alura Adopet Console
+# Adopet Console
 
 Este é um projeto de console para gerenciar pets utilizando uma API HTTP.O projeto é desenvolvido em C# e utiliza .NET 7.
 
