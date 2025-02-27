@@ -1,23 +1,24 @@
-﻿using System.Net.Http.Headers;
+﻿using Adopet.Console.Modelos;
+using Adopet.Console.Servicos.Abstracoes;
 using System.Net.Http.Json;
-using Adopet.Console.Modelos;
 
-namespace Adopet.Console.Servicos
+namespace Adopet.Console.Servicos.Http
 {
-    public class HttpClientPet
+    public class HttpClientPet : IApiService<Pet>
     {
-        private HttpClient client = new();
+        private HttpClient client;
+
         public HttpClientPet(HttpClient client)
         {
             this.client = client;
         }
 
-        public virtual Task CreatePetAsync(Pet pet)
+        public virtual Task CreateAsync(Pet pet)
         {
             return client.PostAsJsonAsync("pet/add", pet);
         }
 
-        public async Task<IEnumerable<Pet>?> ListPetsAsync()
+        public virtual async Task<IEnumerable<Pet>?> ListAsync()
         {
             HttpResponseMessage response = await client.GetAsync("pet/list");
             return await response.Content.ReadFromJsonAsync<IEnumerable<Pet>>();

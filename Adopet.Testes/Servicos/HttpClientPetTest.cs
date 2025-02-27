@@ -3,6 +3,7 @@ using Moq.Protected;
 using Moq;
 using System.Net;
 using System.Net.Sockets;
+using Adopet.Console.Servicos.Http;
 
 namespace Adopet.Testes.Servicos
 {
@@ -70,7 +71,7 @@ namespace Adopet.Testes.Servicos
             var clientePet = new HttpClientPet(httpClient.Object);
 
             // Act
-            var lista = await clientePet.ListPetsAsync();
+            var lista = await clientePet.ListAsync();
             // Assert
 
             Assert.NotNull(lista);
@@ -96,7 +97,7 @@ namespace Adopet.Testes.Servicos
             var clientePet = new HttpClientPet(httpClient.Object);
 
             // Act + Assert
-            await Assert.ThrowsAnyAsync<Exception>(() => clientePet.ListPetsAsync());
+            await Assert.ThrowsAnyAsync<Exception>(() => clientePet.ListAsync());
 
         }
     }

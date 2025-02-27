@@ -1,9 +1,8 @@
-﻿using Adopet.Console.Modelos;
-using Adopet.Console.Servicos.Abstracoes;
+﻿using Adopet.Console.Servicos.Abstracoes;
 using System.Text.Json;
 
 namespace Adopet.Console.Servicos.Arquivos;
-public class LeitorDeArquivosJson : ILeitorDeArquivos
+public class LeitorDeArquivosJson<T> : ILeitorDeArquivo<T>
 {
     private string caminhoArquivo;
     public LeitorDeArquivosJson(string caminhoArquivo)
@@ -11,9 +10,12 @@ public class LeitorDeArquivosJson : ILeitorDeArquivos
         this.caminhoArquivo = caminhoArquivo;
     }
 
-    public IEnumerable<Pet> RealizaLeitura()
+    public IEnumerable<T> RealizaLeitura()
     {
         using var stream = new FileStream(caminhoArquivo, FileMode.Open, FileAccess.Read);
-        return JsonSerializer.Deserialize<IEnumerable<Pet>>(stream) ?? Enumerable.Empty<Pet>();
+        var jsonOptions = new JsonSerializerOptions();
+
+        jsonOptions.PropertyNameCaseInsensitive = true;
+        return JsonSerializer.Deserialize<IEnumerable<T>>(stream, jsonOptions) ?? Enumerable.Empty<T>();
     }
 }

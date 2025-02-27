@@ -1,11 +1,17 @@
 ﻿using System.Net.Http.Headers;
 
-namespace Adopet.Console.Servicos
+namespace Adopet.Console.Servicos.Http
 {
     public class AdoPetAPIClientFactory : IHttpClientFactory
     {
 
-        private string uri = "http://localhost:5057";
+        private string uri;
+
+        public AdoPetAPIClientFactory(string uri)
+        {
+            this.uri = uri;
+        }
+
         public HttpClient CreateClient(string name)
         {
             HttpClient _client = new HttpClient();

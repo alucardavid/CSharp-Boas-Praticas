@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adopet.Console.Util
+namespace Adopet.Console.Results
 {
-    internal class SuccessWithDocs : Success
+    public class SuccessWithDocs : Success
     {
         public IEnumerable<string> Documentacao { get; }
         public SuccessWithDocs(IEnumerable<string> documentacao)

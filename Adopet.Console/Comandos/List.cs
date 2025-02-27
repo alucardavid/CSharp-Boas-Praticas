@@ -1,37 +1,44 @@
-﻿
-using Adopet.Console;
-using Adopet.Console.Comandos;
-using Adopet.Console.Modelos;
-using Adopet.Console.Servicos;
-using Adopet.Console.Util;
+﻿using Adopet.Console.Modelos;
+using Adopet.Console.Results;
+using Adopet.Console.Servicos.Abstracoes;
 using FluentResults;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 
-[DocComandoAttribute(instrucao: "list", documentacao: "adopet list comando que exibe no terminal o conteúdo da base de dados da AdoPet.")]
-internal class List : IComando
+namespace Adopet.Console.Comandos
 {
-    private readonly HttpClientPet clientPet;
-
-    public List(HttpClientPet clientPet)
+    [DocComandoAttribute(instrucao: "list",
+      documentacao: "adopet list comando que exibe no terminal o conteúdo cadastrado na base de dados da AdoPet.")]
+    public class List : IComando
     {
-        this.clientPet = clientPet;
-    }
+        private readonly IApiService<Pet> clientPet;
 
-    public async Task<Result> ExecutarAsync()
-    {
-        return await ListaDadosPetDaAPIAsync();
-    }
-
-    private async Task<Result> ListaDadosPetDaAPIAsync()
-    {
-        IEnumerable<Pet>? pets = await clientPet.ListPetsAsync();
-        if (pets is not null)
+        public List(IApiService<Pet> clientPet)
         {
-            return Result.Ok().WithSuccess(new SuccessWithPets(pets, "Pets Listados Com Sucesso!"));
+            this.clientPet = clientPet;
         }
 
-        return Result.Ok().WithSuccess("Nenhum pet");
+        public Task<Result> ExecutarAsync()
+        {
+            return this.ListaDadosPetsDaAPIAsync();
+        }
+
+        private async Task<Result> ListaDadosPetsDaAPIAsync()
+        {
+            try
+            {
+                IEnumerable<Pet>? pets = await clientPet.ListAsync();
+                if (pets == null)
+                {
+                    return Result.Fail(new Error("Listagem falhou!"));
+                }
+                return Result.Ok().WithSuccess(new SuccessWithPets(pets, "Listagem de Pet's realizada com sucesso!"));
+            }
+            catch (Exception exception)
+            {
+
+                return Result.Fail(new Error("Listagem falhou!").CausedBy(exception));
+            }
+
+        }
 
     }
 }

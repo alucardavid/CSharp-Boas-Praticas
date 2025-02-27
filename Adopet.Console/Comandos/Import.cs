@@ -1,23 +1,24 @@
 ﻿using Adopet.Console.Modelos;
-using Adopet.Console.Servicos;
-using Adopet.Console.Servicos.Arquivos;
-using Adopet.Console.Util;
+using Adopet.Console.Results;
+using Adopet.Console.Servicos.Abstracoes;
 using FluentResults;
 
 namespace Adopet.Console.Comandos
 {
     [DocComandoAttribute(instrucao: "import", documentacao: "adopet import <arquivo> comando que realiza a importação do arquivo de pets.")]
-    public class Import : IComando
+    public class Import : IComando, IDepoisDaExecucao
     {
 
-        private readonly HttpClientPet clientPet;
-        private readonly LeitorDeArquivoCsv leitor;
+        private readonly IApiService<Pet> clientPet;
+        private readonly ILeitorDeArquivo<Pet> leitor;
 
-        public Import(HttpClientPet clientPet, LeitorDeArquivoCsv leitor)
+        public Import(IApiService<Pet> clientPet, ILeitorDeArquivo<Pet> leitor)
         {
             this.clientPet = clientPet;
             this.leitor = leitor;
         }
+
+        public event Action<Result>? DepoisDaExecucao;
 
         public async Task<Result> ExecutarAsync()
         {
@@ -31,9 +32,11 @@ namespace Adopet.Console.Comandos
                 var listaDePet = leitor.RealizaLeitura();
                 foreach (var pet in listaDePet)
                 {
-                    await clientPet.CreatePetAsync(pet);
+                    await clientPet.CreateAsync(pet);
                 }
-                return Result.Ok().WithSuccess(new SuccessWithPets(listaDePet, "Importacao Realizada com Sucesso!"));
+                var resultado = Result.Ok().WithSuccess(new SuccessWithPets(listaDePet, "Importacao Realizada com Sucesso!"));
+                DepoisDaExecucao?.Invoke(resultado);
+                return resultado;
             }
             catch (Exception ex)
             {

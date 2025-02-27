@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adopet.Console.Util
+namespace Adopet.Console.Results
 {
     public class SuccessWithPets : Success
     {
         public IEnumerable<Pet> Data { get; }
 
-        public SuccessWithPets(IEnumerable<Pet> data, string mensagem):base(mensagem)
+        public SuccessWithPets(IEnumerable<Pet> data, string mensagem) : base(mensagem)
         {
             Data = data;
         }

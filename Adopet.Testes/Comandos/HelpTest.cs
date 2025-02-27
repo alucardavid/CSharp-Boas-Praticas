@@ -1,9 +1,10 @@
-﻿using Adopet.Console.Results;
+﻿using Adopet.Console.Comandos;
+using Adopet.Console.Results;
 using Adopet.Console.Util;
 using FluentResults;
 using System.Reflection;
 
-namespace Adopet.Console.Comandos
+namespace Adopet.Testes.Comandos
 {
     [DocComandoAttribute(instrucao: "help",
      documentacao: "adopet help comando que exibe informações da ajuda. \n" +

@@ -1,34 +1,29 @@
 ﻿using Adopet.Console.Comandos;
 using Adopet.Console.Modelos;
-using Adopet.Console.Servicos;
-using Adopet.Console.Util;
+using Adopet.Console.Results;
 using Adopet.Testes.Builder;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Adopet.Testes
+namespace Adopet.Testes.Comandos
 {
     public class ImportTest
     {
         [Fact]
         public async void QuandoListaVaziaNaoDeveChamarCreatPetAsync()
         {
-            // Arrange
-            var listaDePet = new List<Pet>();
+            //Arrange
+            List<Pet> listaDePet = new();
             var leitorDeArquivo = LeitorDeArquivosMockBuilder.GetMock(listaDePet);
-            var httpClientPet = new Mock<HttpClientPet>(MockBehavior.Default, It.IsAny<HttpClient>());
-            var import = new Import(httpClientPet.Object, leitorDeArquivo.Object);
-            string[] args = { "import", "lista.csv" };
 
-            // Act
+            var httpClientPet = ApiServiceMockBuilder.GetMock<Pet>();
+
+            var import = new Import(httpClientPet.Object, leitorDeArquivo.Object);
+
+            //Act
             await import.ExecutarAsync();
 
-            // Assert
-            httpClientPet.Verify(_ => _.CreatePetAsync(It.IsAny<Pet>()), Times.Never);
+            //Assert
+            httpClientPet.Verify(_ => _.CreateAsync(It.IsAny<Pet>()), Times.Never);
         }
 
         [Fact]
@@ -39,9 +34,7 @@ namespace Adopet.Testes
             var leitor = LeitorDeArquivosMockBuilder.GetMock(listaDePet);
             leitor.Setup(_ => _.RealizaLeitura()).Throws<FileNotFoundException>();
 
-            var httpClientPet = HttpClientPetMockBuilder.GetMock();
-
-            string[] args = { "import", "lista.csv" };
+            var httpClientPet = ApiServiceMockBuilder.GetMock<Pet>();
 
             var import = new Import(httpClientPet.Object, leitor.Object);
 
@@ -52,26 +45,27 @@ namespace Adopet.Testes
             Assert.True(resultado.IsFailed);
         }
 
-
         [Fact]
         public async Task QuandoPetEstiverNoArquivoDeveSerImportado()
         {
-            // Arrange
+            //Arrange
             List<Pet> listaDePet = new();
             var pet = new Pet(new Guid("456b24f4-19e2-4423-845d-4a80e8854a99"),
-                                        "Lima", TipoPet.Cachorro);
+                              "Lima", TipoPet.Cachorro);
             listaDePet.Add(pet);
             var leitorDeArquivo = LeitorDeArquivosMockBuilder.GetMock(listaDePet);
 
-            var httpClientPet = HttpClientPetMockBuilder.GetMock();
+            var httpClientPet = ApiServiceMockBuilder.GetMock<Pet>();
 
             var import = new Import(httpClientPet.Object, leitorDeArquivo.Object);
-            string[] args = { "import", "lista.csv" };
-            // Act
+
+            //Act
             var resultado = await import.ExecutarAsync();
 
-            // Assert
+            //Assert
             Assert.True(resultado.IsSuccess);
+            var sucesso = (SuccessWithPets)resultado.Successes[0];
+            Assert.Equal("Lima", sucesso.Data.First().Nome);
         }
     }
 }

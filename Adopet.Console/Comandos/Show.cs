@@ -1,37 +1,38 @@
-﻿using Adopet.Console.Comandos;
-using Adopet.Console.Util;
-using Adopet.Console;
-using FluentResults;
-using System.Diagnostics.CodeAnalysis;
-using System;
-using Adopet.Console.Servicos.Arquivos;
+﻿using FluentResults;
+using Adopet.Console.Modelos;
+using Adopet.Console.Results;
+using Adopet.Console.Servicos.Abstracoes;
 
-[DocComandoAttribute(instrucao: "show", documentacao: "adopet show <ARQUIVO> comando que exibe no terminal o conteúdo do arquivo importado.")]
-internal class Show : IComando
+namespace Adopet.Console.Comandos
 {
-    private readonly LeitorDeArquivoCsv leitor;
-    public Show(LeitorDeArquivoCsv leitor)
+    [DocComandoAttribute(instrucao: "show",
+       documentacao: "adopet show <ARQUIVO> comando que exibe no terminal o conteúdo do arquivo importado.")]
+    public class Show : IComando
     {
-        this.leitor = leitor;
-    }
+        private readonly ILeitorDeArquivo<Pet> leitor;
 
-    public Task<Result> ExecutarAsync()
-    {
-        try
+        public Show(ILeitorDeArquivo<Pet> leitor)
         {
-            return this.ExibeConteudoArquivo();
+            this.leitor = leitor;
         }
-        catch (Exception ex)
+
+        public Task<Result> ExecutarAsync()
         {
-
-            return Task.FromResult(Result.Fail(new Error("Importação falhou!").CausedBy(ex)));
+            try
+            {
+                return this.ExibeConteudoArquivo();
+            }
+            catch (Exception exception)
+            {
+                return Task.FromResult(Result.Fail(new Error("Importação falhou!").CausedBy(exception)));
+            }
         }
-    }
 
-    private Task<Result> ExibeConteudoArquivo()
-    {
-        var listaPets = leitor.RealizaLeitura();
-        
-        return Task.FromResult(Result.Ok().WithSuccess(new SuccessWithPets(listaPets, "Conteúdo do arquivo exibido com sucesso!")));
+        private Task<Result> ExibeConteudoArquivo()
+        {
+            var listaDepets = leitor.RealizaLeitura();
+            return Task.FromResult(Result.Ok().WithSuccess(new SuccessWithPets(listaDepets, "Exibição do arquivo realizada com sucesso!")));
+
+        }
     }
 }

@@ -40,7 +40,7 @@ public class LeitorDeArquivoJsonTest : IDisposable
     {
         //Arrange            
         //Act
-        var listaDePets = new LeitorDeArquivosJson(caminhoArquivo).RealizaLeitura()!;
+        var listaDePets = new LeitorDeArquivosJson<Pet>(caminhoArquivo).RealizaLeitura()!;
         //Assert
         Assert.NotNull(listaDePets);
         Assert.IsType<List<Pet>?>(listaDePets);

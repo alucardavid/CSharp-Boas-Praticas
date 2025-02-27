@@ -1,7 +1,5 @@
 ﻿using Adopet.Console.Comandos;
-using Adopet.Console.Servicos;
 using Adopet.Console.UI;
-using Adopet.Console.Util;
 using FluentResults;
 
 try
@@ -9,6 +7,7 @@ try
     IComando? comando = ComandosFactory.CriarComando(args);
     if (comando is not null)
     {
+        System.Console.WriteLine(comando);
         var resultado = await comando.ExecutarAsync();
         ConsoleUI.ExibeResultado(resultado);
     }
